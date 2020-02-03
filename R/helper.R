@@ -3,6 +3,7 @@
 #----------------------------------------------------------#
 # Calculate coefficients, one for each variable from the scenario table
 
+#' @export
 defineObjectiveCoefficients <- function(scenarioTable) {
   # Set "less is better to negative" and divide by maximum difference
   scenarioTable[scenarioTable$direction == "less is better", grep(c("^adjSem"), names(scenarioTable))] <-
@@ -20,6 +21,7 @@ defineObjectiveCoefficients <- function(scenarioTable) {
 #### Define the constraints matrix ####
 #-------------------------------------#
 
+#' @export
 defineConstraintCoefficients <- function (scenarioTable) {
   tempTableMore <- scenarioTable %>% filter(direction == "more is better") %>%
     mutate_at(vars(starts_with("adjSem")), funs(modified = (. - minAdjSem) / diffAdjSem))
